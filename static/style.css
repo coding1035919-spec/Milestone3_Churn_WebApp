@@ -1,0 +1,472 @@
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+:root {
+  --bg: #0a1120;
+  --surface: #121b2e;
+  --surface-2: #182339;
+  --border: #263349;
+  --text: #e7ecf5;
+  --text-muted: #8494b0;
+  --text-faint: #4d5b78;
+
+  --blue: #4c8dff;
+  --teal: #2dd9aa;
+  --coral: #ff6152;
+  --amber: #ffb443;
+
+  --font-display: "IBM Plex Mono", "SFMono-Regular", monospace;
+  --font-body: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(76, 141, 255, 0.10), transparent 40%),
+    radial-gradient(circle at 88% 0%, rgba(45, 217, 170, 0.08), transparent 45%);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.012) 0px,
+    rgba(255, 255, 255, 0.012) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  z-index: 999;
+}
+
+/* ==========================================================================
+   Layout shell
+   ========================================================================== */
+.wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 24px 24px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.brand-mark .bar {
+  display: inline-block;
+  width: 3px;
+  background: var(--blue);
+  border-radius: 1px;
+}
+.brand-mark .b1 { height: 6px; }
+.brand-mark .b2 { height: 11px; }
+.brand-mark .b3 { height: 16px; background: var(--teal); }
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+.brand-accent { color: var(--text-faint); }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.status-pill .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 0 3px rgba(45, 217, 170, 0.18);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero {
+  padding: 56px 0 36px;
+  animation: rise 0.6s ease both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin: 0 0 14px;
+}
+
+.hero h1 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+  color: var(--text);
+}
+
+.subhead {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 52ch;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Stats row
+   ========================================================================== */
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--blue);
+}
+
+.stat-value--text {
+  font-size: 20px;
+  color: var(--amber);
+}
+
+.stat-unit {
+  font-size: 16px;
+  color: var(--text-faint);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Console / form
+   ========================================================================== */
+.console {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-bottom: 28px;
+}
+
+.console-header h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 4px;
+  color: var(--text);
+}
+
+.console-header p {
+  margin: 0 0 28px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.field-group {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px 18px 8px;
+  margin: 0 0 18px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 18px;
+}
+
+.field-group legend {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal);
+  padding: 0 8px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.field-label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.field-label em {
+  font-style: normal;
+  color: var(--text-faint);
+}
+
+.field input,
+.field select {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 11px 12px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  appearance: none;
+}
+
+.field select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+                     linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position: calc(100% - 16px) center, calc(100% - 11px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: var(--text-faint);
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(76, 141, 255, 0.22);
+}
+
+.field input::placeholder {
+  color: var(--text-faint);
+}
+
+.run-btn {
+  width: 100%;
+  background: var(--blue);
+  color: #061024;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 15px 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.run-btn:hover {
+  background: #6ba0ff;
+  box-shadow: 0 8px 24px rgba(76, 141, 255, 0.28);
+}
+
+.run-btn:active {
+  transform: translateY(1px);
+}
+
+.run-btn .arrow {
+  transition: transform 0.15s ease;
+}
+
+.run-btn:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Result panel
+   ========================================================================== */
+.result-panel {
+  border-radius: var(--radius);
+  padding: 28px 32px 32px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  animation: rise 0.4s ease both;
+  margin-bottom: 28px;
+}
+
+.result-eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.result-verdict {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 26px;
+  margin: 0 0 20px;
+}
+
+.result-safe { border-color: rgba(45, 217, 170, 0.35); }
+.result-safe .result-verdict { color: var(--teal); }
+
+.result-risk { border-color: rgba(255, 97, 82, 0.4); }
+.result-risk .result-verdict { color: var(--coral); }
+
+.result-error { border-color: rgba(255, 180, 67, 0.4); }
+.result-error .result-verdict { color: var(--amber); font-size: 16px; font-family: var(--font-display); }
+
+.signal-gauge {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 34px;
+  margin-bottom: 12px;
+}
+
+.signal-bar {
+  width: 10px;
+  height: calc(10px + (var(--i) * 6px));
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.signal-bar.filled {
+  background: var(--coral);
+  border-color: var(--coral);
+}
+
+.result-safe .signal-bar.filled {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+
+.result-prob {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.result-prob-num {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--text);
+  font-size: 15px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  text-align: center;
+  padding-top: 12px;
+}
+
+.footer p {
+  font-size: 12px;
+  color: var(--text-faint);
+  margin: 0;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 720px) {
+  .stats-row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .stat-card--wide {
+    grid-column: 1 / -1;
+  }
+  .field-group {
+    grid-template-columns: 1fr;
+  }
+  .console {
+    padding: 22px;
+  }
+}
+
+/* ==========================================================================
+   Accessibility
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
